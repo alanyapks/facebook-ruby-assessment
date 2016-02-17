@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 	# This is Sinatra! Remember to create a migration!
 	has_secure_password
+	has_many :posts
 
 	validates_presence_of :username, message: "Error: Please input username"
 	validates_presence_of :email, message: "Error: Please input email"
