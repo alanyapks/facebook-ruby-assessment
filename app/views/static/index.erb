@@ -4,6 +4,10 @@
 <br/><br/>
 <% if logged_in? %>
 	<h1>Hello,weeeeeee</h1>
+	<form method="post" action="/users/logout">
+		<input type="submit" value="Log out">
+	</form>
+	
 <% else %>
 	<form method="post" action="/users/signup">
 		<input type="submit" value="Sign Up">

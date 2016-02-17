@@ -10,7 +10,7 @@ end
 post "/users/signup" do
 	puts "[LOG] Getting /"
 	puts "[LOG] Params: #{params.inspect}"
-	user = User.new(username: params[:username], email: params[:email], password: params[:password])
+	user = User.new(params[:user])
 	if user.save
 		session[:user_id] = user.id
 		redirect "/users/#{user.id}"
@@ -20,12 +20,13 @@ post "/users/signup" do
 	end
 end
 
+
 #show - Show user profile
 
 #edit
 #update
 #delete
-#login
+#login - User is able to log into an account (sign in)
 post  "/users/login" do
 	puts "[LOG] Getting /"
 	puts "[LOG] Params: #{params.inspect}"
@@ -39,4 +40,11 @@ post  "/users/login" do
 	end
 end
 
-#logout
+#logout - User is able to log out from an account (sign out)
+post "/users/logout" do
+	puts "[LOG] Getting /"
+	puts "[LOG] Params: #{params.inspect}"
+
+	session.clear
+	redirect "/"
+end 
