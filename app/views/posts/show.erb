@@ -1,0 +1,10 @@
+<small>Posted by: <%= @post.user.username %></small>
+<h3><%= @post.id %>. <%= @post.text %></h3>
+<% if session[:user_id] == @post.user.id %>
+	<a href="/users/<%= @post.user.id %>/posts/<%= @post.id %>/edit"><button>Edit Post</button></a>
+	<form method="post" action="/posts/<%= @post.id %>" >
+		<input type="hidden" name="_method" value="delete">
+		<input type="submit" value="Delete post">
+	</form>
+<% end %>
+<%= "____________________________" %>

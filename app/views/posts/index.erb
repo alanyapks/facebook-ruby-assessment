@@ -10,6 +10,6 @@
 <%="______________________________________"%><br/><br/>
 <br/>
 <% @user.posts.each do |post| %>
-	<h3><%= post.id %>. <%= post.text%></h3>
-	<%= "-------------------------" %>
+	<h3><%= post.id %>. <%= post.text%>  <a href="/users/<%=@user.id%>/posts/<%=post.id%>"><button>Show</button></a></h3>
+	<%= "-------------------------" %><br/><br/>
 <% end %>

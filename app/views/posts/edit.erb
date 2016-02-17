@@ -1,0 +1,15 @@
+<h1>Edit Post</h1>
+<br/>
+
+<% if logged_in? %>
+	<p>Hi, <a href="/users/<%= @user.id %>"><button><%= @user.username %></button></a> | <%=" -------- "%> <a href="/"><button>home</button></a>	<a href="/users/logout"><button>logout</button></a><br/></p>
+	<%="______________________________________"%>
+	<br/>
+<% end %>
+<br/><br/><br/>
+<form action="/users/<%= @post.user.id %>/posts/<%= @post.id %>" method="post">
+	<input type="hidden" name="_method" value="patch">
+	<label>Post:</label><br/>
+	<input type="text" name="post[text]" value="<%= @post.text%>"><br/><br/>
+	<input type="submit" value="Update Post">
+</form>
