@@ -1,56 +1,83 @@
-#index
-#new
-get "/users/new" do
-	puts "[LOG] Getting /users/new"
-	puts "[LOG] Params: #{params.inspect}"
-	erb :"users/signup"
-end
-
-#create - User is able to create an account (sign up)
-post "/users/signup" do
-	puts "[LOG] Getting /users/signup"
-	puts "[LOG] Params: #{params.inspect}"
-	user = User.new(params[:user])
-	if user.save
+post '/users/login' do
+	User.connection
+	user = User.authenticate(params[:email], params[:password])
+	if user 
 		session[:user_id] = user.id
 		redirect "/users/#{user.id}"
 	else
-		session[:error] = user.errors.full_messages.first
-		redirect "/users/new"
+		@warning = "Login failed, invalid details, please retry"
+		erb :'user/index'
 	end
 end
 
-#show - Show user profile
-get '/users/:id/' do
-	puts "[LOG] Getting /users/:id/"
-	puts "[LOG] Params: #{params.inspect}"
-	@user = current_user
-	erb :"users/show"
+# User logout
+
+get '/users/logout' do
+	session[:user_id] = nil
+	redirect '/'
 end
 
+# Display new user form
+get '/users/new' do
+	erb :"user/new"
+end
 
-#edit
-#update
-#delete
-#login - User is able to log into an account (sign in)
-post  "/users/login" do
-	puts "[LOG] Getting /users/login"
-	puts "[LOG] Params: #{params.inspect}"
+# Create new user
 
-	user = User.authenticate(params[:user][:email], params[:user][:password])
-	if user
-		session[:user_id] = user.id
-		redirect "/"
+post "/users" do
+	# byebug
+	@user = User.new(username: params[:username], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
+
+	if @user.save
+		session[:user_id] = @user.id
+		redirect "/users/#{@user.id}"
 	else
-		redirect "/"
+		@warning = "Sign up failed, invalid or incomplete info, please retry"
+		erb :'/user/new'
 	end
 end
 
-#logout - User is able to log out from an account (sign out)
-post "/users/logout" do
-	puts "[LOG] Getting /users/logout"
-	puts "[LOG] Params: #{params.inspect}"
+# View all user posts
 
-	session.clear
-	redirect "/"
+get "/users/posts" do
+	@user = current_user
+	@posts = Question.where(user_id: session[:user_id])
+	erb :'user/posts'
+end
+
+
+# View user profile
+
+get '/users/:id' do
+	@user = User.find(params[:id])
+	erb :'user/show'
+end
+
+# Display Edit User form
+
+get '/users/:id/edit' do
+	@user = User.find(params[:id])
+	erb :'user/edit'
 end 
+
+# Edit user
+
+patch '/users/:id' do
+	user = User.find(params[:id])
+	user.update(username: params[:username], email: params[:email], password: params[:password])
+	redirect "/users/#{user.id}"
+end
+
+# Delete user
+
+delete '/users/:id' do
+	user = User.find(params[:id])
+	user.destroy
+	erb :'static/index'
+end
+
+# View login page
+
+get '/users' do
+	erb :'user/index'
+end

@@ -1,4 +1,5 @@
 helpers do 
+	enable :sessions
 	# This will return the current user, if they exist
 	# Replace with code that work with your application
 	def current_user
