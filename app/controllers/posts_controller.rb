@@ -5,35 +5,36 @@ get "/posts/new" do
 end
 
 # Create new post
-
 post "/posts" do
 	# byebug
 	@user = current_user
-	@post = Post.new(text: params[:text], user_id: session[:user_id])
-
+	@post = Post.new(text: params[:text])
 	if @post.save
-		# erb :"/user/posts"
 		redirect to "/posts/#{@post.id}"
 	else
-		@warning = "Action failed, invalid or incomplete info, please retry"
+		@warning = "Error"
 		erb :"post/new"
 	end
 end
 
-# View the post
+#View all post
+get '/posts' do
+	@user = User.find(params[:user_id])
+  erb :"posts/posts"
+end
 
+# View the post
 get "/posts/:id" do
 	@user = current_user
 	@post = post.find(params[:id])
 	@answers = @post.answers
-	erb :'post/show'
+	erb :"post/show"
 end
 
 # Delete post
-
 delete '/posts/:id' do
 	@user = current_user
 	post = Post.find(params[:id])
 	post.destroy
-	erb :'user/posts'
+	erb :"user/posts"
 end

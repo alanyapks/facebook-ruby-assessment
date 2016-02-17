@@ -11,7 +11,6 @@ post '/users/login' do
 end
 
 # User logout
-
 get '/users/logout' do
 	session[:user_id] = nil
 	redirect '/'
@@ -23,11 +22,9 @@ get '/users/new' do
 end
 
 # Create new user
-
 post "/users" do
 	# byebug
-	@user = User.new(username: params[:username], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
-
+	@user = User.new(username: params[:username], email: params[:email], password: params[:password])
 	if @user.save
 		session[:user_id] = @user.id
 		redirect "/users/#{@user.id}"
@@ -38,7 +35,6 @@ post "/users" do
 end
 
 # View all user posts
-
 get "/users/posts" do
 	@user = current_user
 	@posts = Question.where(user_id: session[:user_id])
@@ -47,21 +43,18 @@ end
 
 
 # View user profile
-
 get '/users/:id' do
 	@user = User.find(params[:id])
 	erb :'user/show'
 end
 
 # Display Edit User form
-
 get '/users/:id/edit' do
 	@user = User.find(params[:id])
 	erb :'user/edit'
 end 
 
 # Edit user
-
 patch '/users/:id' do
 	user = User.find(params[:id])
 	user.update(username: params[:username], email: params[:email], password: params[:password])
@@ -69,7 +62,6 @@ patch '/users/:id' do
 end
 
 # Delete user
-
 delete '/users/:id' do
 	user = User.find(params[:id])
 	user.destroy
@@ -77,7 +69,6 @@ delete '/users/:id' do
 end
 
 # View login page
-
 get '/users' do
 	erb :'user/index'
 end

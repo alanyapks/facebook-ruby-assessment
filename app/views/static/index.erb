@@ -7,24 +7,25 @@
 <%end%>
 
 <h2>Latest Post</h2>
+<% @posts.each do |post|%>
+	<h2><%= post.id %>. <%= post.text%></h2>
+	<h2><</h2>
+<% end %>
 
+<br/>
 <% if logged_in? %>
+	<a href="/posts/new"><button>Write a post </button></a><br>
+	<a href="/users/<%= @user.id %>"><button>View My Profile</button></a><br>
+	<a href="/users/<%= @user.id %>/edit"><button>Edit Profile</button></a><br><br>
+	<a href="/users/logout"><button>LOGOUT</button></a>
+	<a href="/"><button>HOME</button></a>
 
+<%else%>
+	<p>For existing users Login</p>
+	<a href="/users"><button>Login</button></a>
+	<p>For new users Sign Up</p>
+	<a href="/users/new"><button>Sign Up</button></a><br><br>
+	<a href="/users/logout"><button>LOGOUT</button></a>
+	<a href="/"><button>HOME</button></a>
 
-		<a href="/posts/new"><button>Post a question</button></a><br>
-		<a href="/users/<%= @user.id %>"><button>View My Profile</button></a><br>
-		<a href="/users/<%= @user.id %>/edit"><button>Edit Profile</button></a><br><br>
-		<a href="/users/logout"><button>LOGOUT</button></a>
-		<a href="/"><button>HOME</button></a>
-
-	<%else%>
-
-
-		<p>For existing users Login</p>
-		<a href="/users"><button>Login</button></a>
-		<p>For new users Sign Up</p>
-		<a href="/users/new"><button>Sign Up</button></a><br><br>
-		<a href="/users/logout"><button>LOGOUT</button></a>
-		<a href="/"><button>HOME</button></a>
-
-	<%end%>
+<%end%>
