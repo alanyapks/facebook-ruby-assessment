@@ -2,13 +2,17 @@
 <br/><%= "__________________________________" %>
 
 <br/><br/>
-<form method="post" action="/users/signup">
-	<input type="submit" value="Sign Up">
-</form>
-<br/><%= "-----------------------------------" %>
-<br/><br/>
-<form method="post" action="/users/login">
-	<input type="email" placeholder="Email" name="user[email]"><br/>
-	<input type="password" placeholder="Password" name="user[password]"><br/>
-	<input type="submit" value="Log in">
-</form>
+<% if logged_in? %>
+	<h1>Hello,weeeeeee</h1>
+<% else %>
+	<form method="post" action="/users/signup">
+		<input type="submit" value="Sign Up">
+	</form>
+	<br/><%= "-----------------------------------" %>
+	<br/><br/>
+	<form method="post" action="/users/login">
+		<input type="email" placeholder="Email" name="user[email]"><br/>
+		<input type="password" placeholder="Password" name="user[password]"><br/>
+		<input type="submit" value="Log in">
+	</form>
+<% end %>

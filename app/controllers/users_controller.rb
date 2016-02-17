@@ -20,7 +20,23 @@ post "/users/signup" do
 	end
 end
 
-#show
+#show - Show user profile
+
 #edit
 #update
 #delete
+#login
+post  "/users/login" do
+	puts "[LOG] Getting /"
+	puts "[LOG] Params: #{params.inspect}"
+
+	user = User.authenticate(params[:user][:email], params[:user][:password])
+	if user
+		session[:user_id] = user.id
+		redirect "/"
+	else
+		redirect "/"
+	end
+end
+
+#logout
