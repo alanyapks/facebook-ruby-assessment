@@ -1,0 +1,25 @@
+<h1>Edit Profile</h1>
+
+<% if logged_in? %>
+	<p>Hi, <a href="/users/<%= @user.id %>"><button><%= @user.username %></button></a> | <%=" -------- "%> <a href="/"><button>home</button></a>	<a href="/users/logout"><button>logout</button></a><br/></p>
+	<%="______________________________________"%>
+	<br/>
+<h2>You are logged in as <%= @user.username %><br/></h2>
+
+<form action="/users/<%= @user.id %>" method="post">
+	<input type="hidden" name="_method" value="patch">
+	<input type="text" name="username" value="<%= @user.username%>"><br/>
+	<input type="email" name="email" value="<%= @user.email%>"><br/>
+	<input type="text" placeholder="new password" name="password" value="<%= @user.password%>"><br><br>
+	<input type="submit" value="Update profile">
+</form>
+
+<%="______________________________________"%><br/><br/>
+
+<form action="/users/<%= @user.id %>" method="post">
+	<input type="hidden" name="_method" value="delete">
+	<input type="submit" value="Delete profile">
+</form>
+<%else%>
+<h2>You are currently not logged in</h2><br/>
+<%end%>

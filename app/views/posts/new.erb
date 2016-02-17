@@ -1,0 +1,15 @@
+<h1>Write something</h1>
+	
+<a href="/"><button>Home</button></a>
+<br/>
+<%="______________________________________"%><br/><br/>
+<% if logged_in? %>
+	<h3>You are log in as: <%=@user.username%></h3>
+	<a href="/users/logout"><button>logout</button></a>
+<% end %>
+<br/>
+<%="______________________________________"%><br/><br/>
+<form method="post" action="/users/<%= @user.id %>/posts" >
+	<input type="text" placeholder="Write something" name="post[text]"><br/><br/>
+	<input type="submit" value="Submit Post">
+</form>

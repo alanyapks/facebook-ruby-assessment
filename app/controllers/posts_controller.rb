@@ -1,40 +1,27 @@
-# Display new post form
-get "/posts/new" do
-	@user = current_user
-	erb :"post/new"
+#new - get create posts page
+get '/posts/new' do
+  @user = current_user
+  erb :"posts/new"
 end
 
-# Create new post
-post "/posts" do
-	# byebug
-	@user = current_user
-	@post = Post.new(text: params[:text])
-	if @post.save
-		redirect to "/posts/#{@post.id}"
+#create
+post '/users/:user_id/posts' do
+	user = User.find(params[:user_id])
+	post = Post.new(text: params[:post][:text], user_id: user.id)
+	if post.save
+		redirect "/users/#{user.id}/post"	
 	else
-		@warning = "Error"
-		erb :"post/new"
+		redirect "/users/#{user.id}/posts/new"	
 	end
 end
 
-#View all post
-get '/posts' do
-	@user = User.find(params[:user_id])
-  erb :"posts/posts"
+#index
+get '/users/:user_id/post' do
+	@user = current_user
+  erb :"posts/index"
 end
 
-# View the post
-get "/posts/:id" do
-	@user = current_user
-	@post = post.find(params[:id])
-	@answers = @post.answers
-	erb :"post/show"
-end
-
-# Delete post
-delete '/posts/:id' do
-	@user = current_user
-	post = Post.find(params[:id])
-	post.destroy
-	erb :"user/posts"
-end
+#show
+#edit
+#update
+#delete

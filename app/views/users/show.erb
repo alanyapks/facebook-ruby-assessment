@@ -1,0 +1,18 @@
+<% if logged_in? %>
+	<p>Hi, <a href="/users/<%= @user.id %>"><button><%= @user.username %></button></a> | <%=" -------- "%> <a href="/"><button>home</button></a>	<a href="/users/logout"><button>logout</button></a><br></p>
+<%else%>
+	<h2>You are currently not logged in</h2><br>
+<%end%>
+
+<%= "_____________________________________" %><br/>
+<h1><%= @user.username%></h1>
+<h3>About me :</h3>
+<div>Name: <%= @user.username %></div><br/>
+<div>Email: <%= @user.email %></div><br/>
+<a href="/users/<%= @user.id %>/edit"><button>Update Info</button></a>
+<br>
+<%= "_____________________________________" %><br/><br/>
+
+
+<a href="/posts/new"><button>Post something</button></a>
+<br>

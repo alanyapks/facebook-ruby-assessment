@@ -1,0 +1,15 @@
+<h1>My posts</h1>
+<a href="/"><button>Home</button></a>
+<br/>
+<%="______________________________________"%><br/><br/>
+<% if logged_in? %>
+	<h3>You are log in as: <%=@user.username%></h3>
+	<a href="/users/logout"><button>logout</button></a>
+<% end %>
+<br/>
+<%="______________________________________"%><br/><br/>
+<br/>
+<% @user.posts.each do |post| %>
+	<h3><%= post.id %>. <%= post.text%></h3>
+	<%= "-------------------------" %>
+<% end %>
