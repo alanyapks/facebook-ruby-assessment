@@ -1,0 +1,17 @@
+<h1>New Comment</h1>
+<a href="/"><button>Home</button></a>
+<br/>
+<%="______________________________________"%><br/><br/>
+<% if logged_in? %>
+	<h3>You are log in as: <%=@user.username%></h3>
+	<a href="/users/logout"><button>logout</button></a>
+<% end %>
+<br/>
+<%="______________________________________"%><br/><br/>
+<br/>
+
+<form action="/posts/<%= @post.id %>/comments" method="post">
+		<label>Add comment:</label><br/>
+		<input type="text" placeholder="comment" name="comment[body]"><br/><br/>
+		<input type="submit" value="Add">
+</form>

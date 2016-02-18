@@ -16,3 +16,16 @@
 
 <a href="/posts/new"><button>Post something</button></a>
 <br>
+
+<h1>My posts</h1>
+<a href="/"><button>Home</button></a><br/>
+<% @user.posts.each do |post| %>
+	<h3><%= post.id %>. <%= post.text%>  <a href="/users/<%=@user.id%>/posts/<%=post.id%>"><button>Show</button></a></h3>
+	<a href="/posts/<%= post.id %>/comments/new"><button type="submit">New comment</button></a><br/>
+	<%= "-------------------------" %><br/><br/>
+	
+<% end %>
+
+
+
+

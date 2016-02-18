@@ -1,5 +1,5 @@
 <small>Posted by: <%= @post.user.username %></small>
-<h3><%= @post.id %>. <%= @post.text %></h3>
+<h2><%= @post.id %>. <%= @post.text %></h2>
 <% if session[:user_id] == @post.user.id %>
 	<a href="/users/<%= @post.user.id %>/posts/<%= @post.id %>/edit"><button>Edit Post</button></a>
 	<form method="post" action="/posts/<%= @post.id %>" >
@@ -8,3 +8,28 @@
 	</form>
 <% end %>
 <%= "____________________________" %>
+<br/><br/>
+<a href="/users/<%= @post.user.id %>"><button>Back</button></a>
+<h4>Comments:</h4>
+<% @post.comments.each do |comment| %>
+	<p><%= comment.id %>. <%= comment.body %></p>
+	<small>Posted by: <%= comment.user.username %></small><br/>
+	<% if session[:user_id] == @post.user.id %>
+		<a href="/users/<%= @post.user.id %>/comments/<%= comment.id %>/edit"><button>Edit comment</button></a><br/>
+		<form method="post" action="/users/<%= @post.user.id %>/comments/<%= comment.id %>" >
+			<input type="hidden" name="_method" value="delete">
+			<input type="submit" value="Delete comment">
+		</form>
+	<% end %>
+	<%= "_______________________" %><br/>
+<% end %>
+<br/>
+<br/>
+<% if logged_in? %>
+	<form action="/posts/<%= @post.id%>/comments" method="post">
+		<label>Add comment:</label><br/>
+		<input type="text" placeholder="Comment" name="comment[body]"><br/><br/>
+		<input type="submit" value="Add">
+	</form>
+<% end %>
+

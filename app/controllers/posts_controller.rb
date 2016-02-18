@@ -23,7 +23,9 @@ end
 
 #show - show post
 get '/users/:user_id/posts/:post_id' do
+	@user = current_user
 	@post = Post.find(params[:post_id])
+	# byebug
 	erb :"posts/show" 
 end
 
@@ -38,9 +40,9 @@ end
 #update
 patch '/users/:user_id/posts/:post_id' do
 	@user = current_user
-	@post = Post.find(params[:post_id])
-	@post.update(text: params[:post][:text])
-	redirect "/users/#{@user.id}/posts"
+	post = Post.find(params[:post_id])
+	post.update(text: params[:post][:text])
+	redirect "/users/#{@user.id}/posts/#{post.id}"
 end
 
 #delete - delete post

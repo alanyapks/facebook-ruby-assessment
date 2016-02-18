@@ -8,7 +8,10 @@
 	<h2>Newsletter: </h2>
 	<% @posts.each do |post|%>
 		<h2><%= post.id %>. <%= post.text%></h2>
-		<h2</h2>
+		<a href="/users/<%=@user.id%>/posts/<%=post.id%>"><button>Show</button></a>
+		<p>--------------------</p>
+		<br/>
+		</h2>
 	<% end %>
 
 <%else%>

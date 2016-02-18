@@ -11,5 +11,7 @@
 <br/>
 <% @user.posts.each do |post| %>
 	<h3><%= post.id %>. <%= post.text%>  <a href="/users/<%=@user.id%>/posts/<%=post.id%>"><button>Show</button></a></h3>
+	<a href="/posts/<%= post.id %>/comments/new"><button type="submit">New comment</button></a><br/>
 	<%= "-------------------------" %><br/><br/>
+	
 <% end %>
